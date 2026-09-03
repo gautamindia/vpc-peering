@@ -1,0 +1,6 @@
+vpc1_cidr    ="10.0.0.0/16"
+subnet1_cidr ="10.0.0.0/28"
+vpc2_cidr    ="192.168.0.0/16"
+subnet2_cidr ="192.168.0.0/28"
+ami-ap-south-1 ="ami-01a00762f46d584a1"
+ami-us-east-1 = "ami-0b6d9d3d33ba97d99"
