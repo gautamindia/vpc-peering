@@ -3,11 +3,13 @@
 
 module "vpc_1" {
   source = "./modules/vpc"
+  public_subnet = true
   vpc_cidr = var.vpc1_cidr
   subnet_cidr = var.subnet1_cidr
   az = "ap-south-1a"
   providers = {
   aws = aws.ap-south-1
+  
 
 }
 }
@@ -18,13 +20,14 @@ module "vpc_1" {
 
 module "vpc_2" {
   source = "./modules/vpc"
+  public_subnet = false
   vpc_cidr = var.vpc2_cidr
   subnet_cidr = var.subnet2_cidr
   az = "us-esat-1a"
 providers = {
   aws = aws.us-east-1
 }
-  
+   
 }
 
 

@@ -5,15 +5,16 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = var.subnet_cidr
-  map_public_ip_on_launch = true
-
+  map_public_ip_on_launch = var.public_subnet
+  availability_zone = var.az
+# authorityits model security, submit create, rate rate gateway
   tags = {
     Name = "Main"
   }
 }
 resource "aws_route_table" "example" {
   vpc_id = aws_vpc.main.id
-
+  count = var.public_subnet ? 1 : 0
   route {
     cidr_block = var.vpc_cidr
     gateway_id = "local"
@@ -24,9 +25,47 @@ resource "aws_route_table" "example" {
   }
 
   tags = {
-    Name = "example"
+    Name = "example" 
   }
 }
+
+
+
+
+
+
+resource "aws_route_table" "example" {
+  vpc_id = aws_vpc.main.id
+  count = var.public_subnet ? 0 : 1
+  route {
+    cidr_block = var.vpc_cidr
+    gateway_id = "local"
+  }
+  
+
+  tags = {
+    Name = "example" 
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id

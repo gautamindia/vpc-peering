@@ -9,3 +9,8 @@ variable "az" {
   type = string
   
 }
+
+variable "public_subnet" {
+  type = bool
+  
+}
