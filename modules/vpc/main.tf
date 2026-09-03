@@ -34,7 +34,7 @@ resource "aws_route_table" "example" {
 
 
 
-resource "aws_route_table" "example" {
+resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main.id
   count = var.public_subnet ? 0 : 1
   route {
@@ -77,7 +77,8 @@ resource "aws_internet_gateway" "gw" {
 
 
 resource "aws_main_route_table_association" "example" {
-  vpc_id         = aws_vpc.main.id
+  # vpc_id         = aws_vpc.main.id
+  vpc_id = var.public_subnet ? aws_route_table.example.id : aws_route_table.main.id
   route_table_id = aws_route_table.example.id
 }
 
