@@ -14,33 +14,6 @@ resource "aws_subnet" "main" {
 }
 resource "aws_route_table" "example" {
   vpc_id = aws_vpc.main.id
-  count = var.public_subnet ? 1 : 0
-  route {
-    cidr_block = var.vpc_cidr
-    gateway_id = "local"
-  }
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
-  tags = {
-    Name = "example" 
-  }
-}
-
-
-
-
-
-
-resource "aws_route_table" "main" {
-  vpc_id = aws_vpc.main.id
-  count = var.public_subnet ? 0 : 1
-  route {
-    cidr_block = var.vpc_cidr
-    gateway_id = "local"
-  }
   
 
   tags = {
@@ -49,36 +22,28 @@ resource "aws_route_table" "main" {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-resource "aws_internet_gateway" "gw" {
+resource "aws_internet_gateway" "example" {
   vpc_id = aws_vpc.main.id
+  count = var.public_subnet ? 1 : 0
+
 
   tags = {
     Name = "main"
   }
 }
 
+resource "aws_route" "internet" {
+  count = var.public_subnet ? 1 : 0
+
+  route_table_id         = aws_route_table.example.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.example[0].id
+}
+
 
 resource "aws_main_route_table_association" "example" {
-  # vpc_id         = aws_vpc.main.id
-  vpc_id = var.public_subnet ? aws_route_table.example.id : aws_route_table.main.id
+   vpc_id         = aws_vpc.main.id
+  
   route_table_id = aws_route_table.example.id
 }
 
