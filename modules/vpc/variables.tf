@@ -14,3 +14,7 @@ variable "public_subnet" {
   type = bool
   
 }
+variable "region" {
+  type = string
+  
+}

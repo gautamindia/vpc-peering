@@ -7,11 +7,7 @@ module "vpc_1" {
   vpc_cidr = var.vpc1_cidr
   subnet_cidr = var.subnet1_cidr
   az = "ap-south-1a"
-  providers = {
-  aws = aws.ap-south-1
-  
-
-}
+ region = "ap-south-1"
 }
   
 
@@ -24,9 +20,7 @@ module "vpc_2" {
   vpc_cidr = var.vpc2_cidr
   subnet_cidr = var.subnet2_cidr
   az = "us-esat-1a"
-providers = {
-  aws = aws.us-east-1
-}
+region = "us-esat-1"
    
 }
 
