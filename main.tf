@@ -19,8 +19,8 @@ module "vpc_2" {
   public_subnet = false
   vpc_cidr = var.vpc2_cidr
   subnet_cidr = var.subnet2_cidr
-  az = "us-esat-1a"
-region = "us-esat-1"
+  az = "us-east-1a"
+region = "us-east-1"
    
 }
 
